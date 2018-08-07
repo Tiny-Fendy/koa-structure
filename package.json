@@ -1,0 +1,40 @@
+{
+  "name": "koa-structure",
+  "version": "1.0.0",
+  "description": "基于koa的web应用基础设施",
+  "main": "app.js",
+  "scripts": {
+    "local": "nodemon app.js NODE_ENV=local",
+    "test": "test",
+    "product": "node app.js NODE_ENV=product"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tiny-Fendy/koa-structure.git"
+  },
+  "keywords": [
+    "koa",
+    "structure"
+  ],
+  "author": "fengdi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Tiny-Fendy/koa-structure/issues"
+  },
+  "homepage": "https://github.com/Tiny-Fendy/koa-structure#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "koa": "^2.5.2",
+    "koa-controller": "^1.1.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.1.4",
+    "xtemplate": "^4.6.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.3",
+    "supertest": "^3.1.0"
+  }
+}
