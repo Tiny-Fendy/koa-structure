@@ -6,7 +6,7 @@
   "scripts": {
     "local": "nodemon app.js NODE_ENV=local",
     "test": "test",
-    "product": "node app.js NODE_ENV=product"
+    "product": "pm2 app.js NODE_ENV=product"
   },
   "repository": {
     "type": "git",
@@ -25,6 +25,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "koa": "^2.5.2",
+    "koa-bodyparser": "^4.2.1",
     "koa-controller": "^1.1.0",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",

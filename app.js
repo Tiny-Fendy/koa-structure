@@ -5,11 +5,10 @@
 const Koa = require('koa');
 const app = new Koa();
 const config = require('./config/config.default');
-const register = require('./frame/register');
+const beforeStartUp = require('./frame/beforeStartUp');
 
-async function beforeStartUp() {
-    await register(app);
-
-}
-
-app.listen(config.port);
+beforeStartUp(app).then(() => {
+    app.listen(config.port, () => {
+        console.log(`app is starting at port ${config.port}`);
+    });
+});
