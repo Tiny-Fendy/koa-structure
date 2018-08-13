@@ -15,24 +15,28 @@ module.exports = async function () {
     const page = new Router();
 
     // 挂载页面controller
-    await mapDir(PageCtrlPath, (pathname, filename, content) => {
-        const type = typeof content;
+    await mapDir(PageCtrlPath, (pathname, filename, Controller) => {
+        const ctrl = new Controller();
         pathname = pathname.replace(PageCtrlPath, '');
 
-        if (type === 'function') {
-            page.get(pathname, content);
-        } else if (type === 'object') {
-            for (const [key, func] of Object.entries(content)) {
-                page.get(`${pathname}/${key}`, func);
-            }
+        for (const [key, func] of ctrl) {
+            const route = key === 'index' ? '' : `/${key}`;
+
+            page.get(`${pathname}${route}`, func);
         }
     });
     // 挂载接口api
-    await mapDir(ApiCtrlPath, (pathname, filename, content) => {
+    await mapDir(ApiCtrlPath, (pathname, filename, Controller) => {
+        const ctrl = new Controller();
+        const { methods } = Controller;
         pathname = pathname.replace(ApiCtrlPath, '');
-        if (content.methods) {
-            for (const [key, method] of Object.entries(content.methods)) {
-                api[method](`${pathname}/${key}`, content[key]);
+
+        if (methods) {
+            for (const [key, func] of ctrl) {
+                const method = methods[key] || 'get';
+                const route = key === 'index' ? '' : `/${key}`;
+                
+                api[method](`${pathname}${route}`, func);
             }
         } else {
             console.log(`[error]:文件${filename}缺少methods对象`)

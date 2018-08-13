@@ -4,7 +4,6 @@
 
 // koa相关模块
 const koaStatic = require('koa-static');
-const views = require('koa-views');
 const bodyParser = require('koa-bodyparser');
 const xtpl = require('xtpl/lib/koa2');
 
@@ -28,6 +27,7 @@ module.exports = async app => {
      * 注册中间件
      * */
 
+
     /**
      * 挂载路由
      * */
@@ -38,6 +38,10 @@ module.exports = async app => {
     /**
      * 注册service
      * */
+    app.use(async (ctx, next) => {
+        ctx.service = {};
+        next();
+    });
 
     /**
      * 加载模板引擎-xtpl
