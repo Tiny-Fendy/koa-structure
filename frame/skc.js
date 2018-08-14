@@ -1,5 +1,5 @@
 
-const Controller = require('./constructor/controller');
+const Controller = require('./constructor/mapConstructor');
 
 module.exports = {
     Controller,
