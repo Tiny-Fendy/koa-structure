@@ -2,7 +2,7 @@
  * 登陆相关
  * */
 
-const Controller = require('../../../frame/skc').Controller;
+const { Controller } = global.Skc;
 
 class IndexController extends Controller {
     async index(ctx) {

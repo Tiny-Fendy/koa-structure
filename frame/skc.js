@@ -1,7 +1,7 @@
 
 const Controller = require('./constructor/mapConstructor');
 
-module.exports = {
+global.Skc = {
     Controller,
     Service: Controller
 };

@@ -11,10 +11,11 @@ async function mapDir (url, callback) {
         let filename = dirList[i];
 
         if (filename.includes('.js')) {
-            const Content = require(`${url}/${filename}`);
+            const fullPath = `${url}/${filename}`;
+            const Content = require(fullPath);
 
             filename = filename.replace('.js', '');
-            callback(`${url}/${filename}`, filename, Content);
+            callback(Content, fullPath, filename);
         } else {
             await mapDir(`${url}/${filename}`, callback);
         }

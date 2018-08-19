@@ -15,7 +15,7 @@ module.exports = async function () {
     const page = new Router();
 
     // 挂载页面controller
-    await mapDir(PageCtrlPath, (pathname, filename, Controller) => {
+    await mapDir(PageCtrlPath, (Controller, pathname ) => {
         const ctrl = new Controller();
         pathname = pathname.replace(PageCtrlPath, '');
 
@@ -26,7 +26,7 @@ module.exports = async function () {
         }
     });
     // 挂载接口api
-    await mapDir(ApiCtrlPath, (pathname, filename, Controller) => {
+    await mapDir(ApiCtrlPath, (Controller, pathname, filename) => {
         const ctrl = new Controller();
         const { methods } = Controller;
         pathname = pathname.replace(ApiCtrlPath, '');
@@ -35,7 +35,7 @@ module.exports = async function () {
             for (const [key, func] of ctrl) {
                 const method = methods[key] || 'get';
                 const route = key === 'index' ? '' : `/${key}`;
-                
+
                 api[method](`${pathname}${route}`, func);
             }
         } else {
