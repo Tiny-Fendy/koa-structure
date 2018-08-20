@@ -15,7 +15,7 @@ module.exports = async function () {
     const page = new Router();
 
     // 挂载页面controller
-    await mapDir(PageCtrlPath, (Controller, pathname ) => {
+    await mapDir(PageCtrlPath, (Controller, pathname) => {
         const ctrl = new Controller();
         pathname = pathname.replace(PageCtrlPath, '');
 

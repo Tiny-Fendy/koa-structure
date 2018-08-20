@@ -47,7 +47,6 @@ module.exports = async app => {
     const getService = serviceLoader(app, config);
     app.use(async (ctx, next) => {
         ctx.service = await getService(ctx);
-
         await next();
     });
     console.log('service挂载完毕');
