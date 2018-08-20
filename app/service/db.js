@@ -6,7 +6,9 @@ const { Service } = global.Skc;
 
 class IndexService extends Service {
     async connect(data) {
-        return data;
+        console.log(this.ctx.service);
+
+        return `${data}加点东西`;
     }
 }
 

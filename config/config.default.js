@@ -3,5 +3,6 @@
  * */
 
 module.exports = {
-  port: 6001
+    port: 6001,
+    middleware: ['userInfo']
 };

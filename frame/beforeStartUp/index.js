@@ -12,8 +12,9 @@ require('../skc');
 // utils
 const getPathname = require('../utils/getPathname');
 // loader
-const mountApiRouter = require('../loader/router');
+const routerLoader = require('../loader/router');
 const serviceLoader = require('../loader/service');
+const middlewareLoader = require('../loader/middleware');
 // config
 const defaultConfig = require('../config/config.default');
 let config = require(getPathname('root', 'config/config.default.js'));
@@ -38,15 +39,7 @@ module.exports = async app => {
     /**
      * 注册中间件
      * */
-
-
-    /**
-     * 挂载路由
-     * */
-    const router = await mountApiRouter();
-    app.use(router.routes());
-    app.use(router.allowedMethods());
-    console.log('router挂载完毕');
+    await middlewareLoader(app, config);
 
     /**
      * 注册service
@@ -54,6 +47,7 @@ module.exports = async app => {
     const getService = serviceLoader(app, config);
     app.use(async (ctx, next) => {
         ctx.service = await getService(ctx);
+
         await next();
     });
     console.log('service挂载完毕');
@@ -64,4 +58,12 @@ module.exports = async app => {
     xtpl(app, {
         views: getPathname('/view')
     });
+
+    /**
+     * 挂载路由
+     * */
+    const router = await routerLoader();
+    app.use(router.routes());
+    app.use(router.allowedMethods());
+    console.log('router挂载完毕');
 };
