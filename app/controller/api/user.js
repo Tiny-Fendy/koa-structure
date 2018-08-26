@@ -5,27 +5,44 @@
 const { Controller } = global.Skc;
 
 class IndexController extends Controller {
-    async login(ctx) {
+    async login(ctx, next) {
         const { request } = ctx;
 
         ctx.body = {
             success: true,
             message: '登录成功',
             data: request.body
-        }
-    };
+        };
 
-    async logout(ctx) {
+        await next();
+    }
+
+    async logout(ctx, next) {
         ctx.body = {
             success: true,
             message: '退出成功'
-        }
-    };
+        };
+
+        await next();
+    }
+
+    async getInfo(ctx, next) {
+        ctx.body = {
+            success: true,
+            message: '',
+            data: {
+                list: []
+            }
+        };
+
+        await next();
+    }
 }
 
 IndexController.methods = {
     login: 'post',
-    logout: 'post'
+    logout: 'post',
+    getInfo: 'get'
 };
 
 module.exports = IndexController;

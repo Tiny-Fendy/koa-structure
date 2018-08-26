@@ -6,6 +6,8 @@
 const koaStatic = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 const xtpl = require('xtpl/lib/koa2');
+const session = require('koa-session');
+const CSRF = require('koa-csrf');
 
 require('../skc');
 
@@ -27,9 +29,23 @@ module.exports = async app => {
     console.log('config信息获取完毕');
 
     /**
+     * session
+     * */
+    app.keys = config.keys;
+    app.use(session(config.session || {}, app));
+
+    /**
      * body-parser
      * */
     app.use(bodyParser());
+
+    /**
+     * 安全处理
+     * CSRF
+     * */
+    if (!config.csrf || config.csrf.enable) {
+        app.use(new CSRF());
+    }
 
     /**
      * 静态资源

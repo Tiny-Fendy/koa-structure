@@ -3,6 +3,7 @@
  * */
 
 module.exports = {
+    keys: ['csrfToken'],
     port: 6001,
     middleware: ['userInfo']
 };

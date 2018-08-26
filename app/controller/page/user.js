@@ -8,9 +8,9 @@ class IndexController extends Controller {
     async index(ctx, next) {
         const title = await ctx.service.db.connect('加点东西吧');
 
-
         ctx.body = await ctx.render('home', {
-            title
+            title,
+            csrf: ctx.csrf
         });
 
         await next();

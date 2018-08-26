@@ -9,7 +9,6 @@ const ServicePath = getPathname('/service');
 module.exports = (app, config) => {
     return async function (ctx) {
         const service = {};
-        const start = Date.now();
 
         await mapDir(ServicePath, (Service, pathname, filename) => {
             pathname = pathname.replace(ServicePath, '');
@@ -31,8 +30,6 @@ module.exports = (app, config) => {
                 }
             });
         });
-
-        console.log(`本次遍历service消耗时间：${(Date.now() - start) / 1000}s`);
 
         return service;
     };
