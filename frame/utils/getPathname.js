@@ -1,7 +1,7 @@
 const path = require('path');
 
 // 根目录的绝对路径
-const root = path.dirname(require.main.filename);
+const root = process.cwd();
 
 module.exports = function (name, pathname) {
     if (name === 'root') {

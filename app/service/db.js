@@ -2,7 +2,7 @@
  * 数据库连接
  * */
 
-const { Service } = require('../../frame/skc');
+const { Service } = require('../../main');
 
 class IndexService extends Service {
     async connect(data) {

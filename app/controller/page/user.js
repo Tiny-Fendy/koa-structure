@@ -2,7 +2,7 @@
  * 登陆相关
  * */
 
-const { Controller } = require('./../../../frame/skc');
+const { Controller } = require('../../../main');
 
 class IndexController extends Controller {
     async index(ctx, next) {

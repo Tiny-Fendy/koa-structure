@@ -19,7 +19,7 @@ const serviceLoader = require('../loader/service');
 const middlewareLoader = require('../loader/middleware');
 // config
 const defaultConfig = require('../config/config.default');
-let config = require(getPathname('root', 'config/config.default.js'));
+let config = require(getPathname('/config/config.default.js'));
 
 async function beforeStartUp (app) {
     /**
