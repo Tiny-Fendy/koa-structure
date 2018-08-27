@@ -5,5 +5,8 @@
 module.exports = {
     keys: ['csrfToken'],
     port: 6001,
-    middleware: ['userInfo']
+    middleware: ['userInfo'],
+    request: {
+        baseURL: 'http://localhost:6001'
+    }
 };
