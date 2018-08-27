@@ -2,7 +2,7 @@
  * 用户登录登出
  * */
 
-const { Controller } = global.Skc;
+const { Controller } = require('../../../frame/skc');
 
 class IndexController extends Controller {
     async login(ctx, next) {

@@ -2,14 +2,14 @@
  * 注册各种乱七八糟的东西
  * */
 
+const startTime = Date.now();
+
 // koa相关模块
+const Koa = require('koa');
 const koaStatic = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 const xtpl = require('xtpl/lib/koa2');
 const session = require('koa-session');
-const CSRF = require('koa-csrf');
-
-require('../skc');
 
 // utils
 const getPathname = require('../utils/getPathname');
@@ -21,7 +21,7 @@ const middlewareLoader = require('../loader/middleware');
 const defaultConfig = require('../config/config.default');
 let config = require(getPathname('root', 'config/config.default.js'));
 
-module.exports = async app => {
+async function beforeStartUp (app) {
     /**
      * 获取配置数据
      * */
@@ -42,10 +42,9 @@ module.exports = async app => {
     /**
      * 安全处理
      * CSRF
+     * 暂时先放这里
      * */
-    if (!config.csrf || config.csrf.enable) {
-        app.use(new CSRF());
-    }
+
 
     /**
      * 静态资源
@@ -81,4 +80,16 @@ module.exports = async app => {
     app.use(router.routes());
     app.use(router.allowedMethods());
     console.log('router挂载完毕');
+
+    return config;
+}
+
+module.exports = async function () {
+    const app = new Koa();
+    const config = await beforeStartUp(app);
+    await app.listen(config.port);
+    console.log(`app is starting at port ${config.port}.`);
+    console.log(`it took ${(Date.now() - startTime) / 1000}s to start.`);
+
+    return { app, config }
 };

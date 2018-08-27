@@ -1,8 +1,9 @@
-
 const Controller = require('./constructor/mapConstructor');
 const Service = require('./constructor/service');
+const start = require('./lifeCycle/start');
 
-global.Skc = {
+module.exports = {
     Controller,
-    Service
+    Service,
+    start,
 };

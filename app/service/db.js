@@ -2,7 +2,7 @@
  * 数据库连接
  * */
 
-const { Service } = global.Skc;
+const { Service } = require('../../frame/skc');
 
 class IndexService extends Service {
     async connect(data) {
