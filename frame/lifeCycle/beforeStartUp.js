@@ -10,6 +10,7 @@ const session = require('koa-session');
 
 // 框架内部中间件
 const httpMiddleware = require('./../middleware/http');
+const mongodbMiddleware = require('./../middleware/mongodb');
 
 // utils
 const getPathname = require('../utils/getPathname');
@@ -52,7 +53,7 @@ module.exports = async function (app) {
     app.use(koaStatic(getPathname('/public')));
 
     /**
-     * 注册中间件
+     * 注册应用中间件
      * */
     await middlewareLoader(app, config);
 
@@ -85,6 +86,11 @@ module.exports = async function (app) {
     app.use(router.routes());
     app.use(router.allowedMethods());
     console.log('router挂载完毕');
+
+    /**
+     * 开始连接数据库
+     * */
+    app.use(await mongodbMiddleware(config.mongodb));
 
     return config;
 };

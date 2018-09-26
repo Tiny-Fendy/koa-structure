@@ -5,7 +5,8 @@
 1. controller、service、middleware的自动挂载
 2. session操作
 3. 常用中间件引入
-4. 安全处理（待开发）
+4. 内置了对mongodb的支持，在config文件中开启
+5. 安全处理（待开发）
 
 
 备注说明

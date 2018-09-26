@@ -8,5 +8,8 @@ module.exports = {
     middleware: ['userInfo'],
     request: {
         baseURL: 'http://localhost:6001'
+    },
+    mongodb: {
+        enable: true
     }
 };
