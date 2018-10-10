@@ -5,7 +5,6 @@ module.exports = {
         maxAge: 86400000
     },
     mongodb: {
-        port: 27017,
-        hostname: 'http://localhost'
+        enable: false
     }
 };

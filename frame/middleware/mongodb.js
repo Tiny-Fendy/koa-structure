@@ -4,8 +4,8 @@
 
 const { MongoClient } = require('mongodb');
 
-module.exports = async (options) => {
-    const db = await MongoClient.connect(`${options.hostname}:${options.port}`);
+module.exports = async (options = {}) => {
+    const db = await MongoClient.connect(`mongodb://${options.hostname}:${options.port}`, { useNewUrlParser: true });
 
     return async (ctx, next) => {
         ctx.db = db;

@@ -15,19 +15,21 @@ const mongodbMiddleware = require('./../middleware/mongodb');
 // utils
 const getPathname = require('../utils/getPathname');
 // loader
+const configLoader = require('../loader/config');
 const routerLoader = require('../loader/router');
 const serviceLoader = require('../loader/service');
 const middlewareLoader = require('../loader/middleware');
-// config
-const defaultConfig = require('../config/config.default');
-let config = require(getPathname('/config/config.default.js'));
 
 module.exports = async function (app) {
+
     /**
      * 获取配置数据
      * */
-    config = Object.assign({}, defaultConfig, config);
-    console.log('config信息获取完毕');
+    const config = await configLoader();
+    Object.defineProperty(app, 'config', {
+        writable: false,
+        value: config
+    });
 
     /**
      * session
@@ -90,7 +92,9 @@ module.exports = async function (app) {
     /**
      * 开始连接数据库
      * */
-    app.use(await mongodbMiddleware(config.mongodb));
+    if (config.mongodb && config.mongodb.enable) {
+        app.use(await mongodbMiddleware(config.mongodb));
+    }
 
     return config;
 };
