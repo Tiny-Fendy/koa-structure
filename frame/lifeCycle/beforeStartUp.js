@@ -7,6 +7,7 @@ const koaStatic = require('koa-static');
 const bodyParser = require('koa-bodyparser');
 const xtpl = require('xtpl/lib/koa2');
 const session = require('koa-session');
+const cors = require('@koa/cors');
 
 // 框架内部中间件
 const httpMiddleware = require('./../middleware/http');
@@ -48,11 +49,11 @@ module.exports = async function (app) {
      * 暂时先放这里
      * */
 
-
     /**
      * 静态资源
      * */
     app.use(koaStatic(getPathname('/public')));
+    app.use(cors());
 
     /**
      * 注册应用中间件

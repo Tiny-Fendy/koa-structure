@@ -11,8 +11,11 @@ exports.start = async function () {
     const config = await beforeStartUp(app);
 
     app.listen(config.port);
-    console.log(`app is starting at port ${config.port}.`);
-    console.log(`it took ${(Date.now() - startTime) / 1000}s to start.`);
+    app.on('error', err => {
+        console.error(err);
+    });
+    console.warn(`app is starting at port ${config.port}.`);
+    console.warn(`it took ${(Date.now() - startTime) / 1000}s to start.`);
 
     return { app, config };
 };
