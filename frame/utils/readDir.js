@@ -9,7 +9,7 @@ module.exports = function (dirPath) {
             !err ? res(file) : rej(err);
         });
     }).then(file => file, err => {
-        console.log(`[error-读取controller目录出错]:${err}`);
+        console.log(`[error-读取目录出错]:${err}`);
         return false;
     });
 };

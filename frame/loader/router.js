@@ -7,7 +7,7 @@ const mapDir = require('../utils/mapDir');
 const getPathname = require('../utils/getPathname');
 const CtrlPath = getPathname('/controller');
 
-module.exports = async function () {
+module.exports = async function (app, config) {
     const root = new Router();
     const router = new Router();
 
@@ -24,8 +24,19 @@ module.exports = async function () {
           if (methods) {
             method = methods[key] || 'get';
           }
-          console.log(method);
-          router[method](`${pathname}${route}`, func);
+          router[method](`${pathname}${route}`, async (ctx, next) => {
+            try {
+              await func.bind({
+                ctx,
+                app,
+                config,
+                service: ctx.service
+              })();
+              await next();
+            } catch (e) {
+              console.error(`[router error]${pathname}${route}:${e}`);
+            }
+          });
         }
     });
 

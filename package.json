@@ -1,6 +1,6 @@
 {
   "name": "koa-structure",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "基于koa的web应用基础框架",
   "main": "main.js",
   "scripts": {

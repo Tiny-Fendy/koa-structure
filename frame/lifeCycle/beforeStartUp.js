@@ -85,7 +85,7 @@ module.exports = async function (app) {
     /**
      * 挂载路由
      * */
-    const router = await routerLoader();
+    const router = await routerLoader(app, config);
     app.use(router.routes());
     app.use(router.allowedMethods());
     console.log('router挂载完毕');
